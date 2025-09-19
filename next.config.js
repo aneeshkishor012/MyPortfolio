@@ -8,7 +8,7 @@ const nextConfig = {
     // trailingSlash: true,
 
     // Optional: change output directory `out` -> `dist`
-    distDir: 'dist',
+    distDir: 'out',
 
     images: {
         unoptimized: true,
