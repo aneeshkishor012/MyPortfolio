@@ -1,0 +1,5 @@
+.ant-menu-dark.ant-menu-horizontal>.ant-menu-item-selected {
+    color: #fff;
+    background-color: #9810fa;
+    border-radius: 8px !important;
+}

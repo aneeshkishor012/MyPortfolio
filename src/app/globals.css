@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Gradient animation */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+/* ===== Scrollbar Styling (WebKit Browsers: Chrome, Edge, Safari) ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  /* scrollbar width */
+  height: 8px;
+  /* for horizontal scroll */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* track color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #9810fa, #87d068);
+  /* thumb color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9810fa, #6bbf50);
+  /* on hover */
+}
+
+/* ===== Firefox ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #9810fa rgba(255, 255, 255, 0.05);
+}
