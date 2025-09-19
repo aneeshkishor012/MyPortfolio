@@ -1,4 +1,4 @@
-name: Deploy Next.js site to GitHub Pages
+name: Deploy Next.js to GitHub Pages
 
 on:
   push:
@@ -6,74 +6,43 @@ on:
       - main  # Change if your default branch is different
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Detect package manager
-        id: detect-package-manager
-        run: |
-          if [ -f "yarn.lock" ]; then
-            echo "manager=yarn" >> $GITHUB_OUTPUT
-            echo "runner=yarn" >> $GITHUB_OUTPUT
-            echo "command=install --frozen-lockfile" >> $GITHUB_OUTPUT
-          elif [ -f "pnpm-lock.yaml" ]; then
-            echo "manager=pnpm" >> $GITHUB_OUTPUT
-            echo "runner=pnpm" >> $GITHUB_OUTPUT
-            echo "command=install --frozen-lockfile" >> $GITHUB_OUTPUT
-          else
-            echo "manager=npm" >> $GITHUB_OUTPUT
-            echo "runner=npx" >> $GITHUB_OUTPUT
-            echo "command=ci" >> $GITHUB_OUTPUT
-          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
+          node-version: 18
 
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: npm ci
 
-      - name: Ensure next.config.js has output: export
-        run: |
-          if [ ! -f next.config.js ]; then
-            echo "module.exports = { output: 'export' };" > next.config.js
-            echo "✅ Created next.config.js with output: 'export'"
-          else
-            if ! grep -q "output: 'export'" next.config.js; then
-              echo "⚠️ next.config.js missing output: 'export', adding it..."
-              echo "" >> next.config.js
-              echo "module.exports = { ...(module.exports || {}), output: 'export' };" >> next.config.js
-            fi
-          fi
+      - name: Build Next.js project
+        run: npm run build
 
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
-
-      - name: Export static files
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
+      - name: Export static site
+        run: npm run export
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: ./out
+          path: ./dist  # ✅ must match distDir in next.config.js
 
   deploy:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v1
