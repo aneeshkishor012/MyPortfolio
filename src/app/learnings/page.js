@@ -4,6 +4,7 @@ import AnimatedBg from '../Screens/animatedBg/animatedBg';
 import AppFooter from '../Screens/footer/footer';
 import Navbar from '../Screens/navBar/navBar';
 import { resources } from '../../resources/datas/learnings';
+import Image from 'next/image';
 
 const { Title, Paragraph } = Typography;
 
@@ -26,7 +27,7 @@ function Learnings() {
                             <a href={res.link} target="_blank" rel="noopener noreferrer">
                                 <Card
                                     hoverable
-                                    cover={<img alt={res.title} src={res.image} style={{ height: 180, objectFit: "contain", padding: "1rem", background: "#1f2937" }} />}
+                                    cover={<Image alt={res.title} src={res.image} style={{ height: 180, objectFit: "contain", padding: "1rem", background: "#1f2937" }} />}
                                     style={{ backgroundColor: "#111827", border: "1px solid #1f2937" }}
                                 >
                                     <Title level={4} style={{ color: "white" }}>{res.title}</Title>

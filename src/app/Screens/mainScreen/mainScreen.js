@@ -10,6 +10,7 @@ import AnimatedBg from '../animatedBg/animatedBg';
 import { experiences } from '../../../resources/datas/experiences';
 import { projects } from '../../../resources/datas/projects';
 import { Button } from 'antd';
+import Image from 'next/image';
 export default function MainScreen() {
 
   const menuItems = [
@@ -111,7 +112,7 @@ export default function MainScreen() {
                   whileHover={{ scale: 1.05 }}
                   className="bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-700"
                 >
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
                     className="rounded-xl mb-4 h-60 w-full object-cover"

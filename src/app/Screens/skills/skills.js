@@ -3,6 +3,7 @@ import { Row, Col, Card, Typography, Button, Progress, Space } from 'antd';
 import Link from 'next/link';
 import { resources } from '../../../resources/datas/skills';
 import { FaCode, FaCss3Alt, FaHtml5, FaJsSquare, FaPython } from 'react-icons/fa';
+import Image from 'next/image';
 // import {  } from "react-icons/fa";
 const { Title, Text, Paragraph } = Typography;
 
@@ -31,7 +32,7 @@ function SkillsSection() {
                             <Card
                                 hoverable
                                 cover={
-                                    <img
+                                    <Image
                                         alt={res.title}
                                         src={res.image}
                                         style={{ height: 180, objectFit: "contain", padding: "1rem", background: "#1f2937" }}

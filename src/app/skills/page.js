@@ -4,6 +4,7 @@ import AnimatedBg from '../Screens/animatedBg/animatedBg';
 import AppFooter from '../Screens/footer/footer';
 import Navbar from '../Screens/navBar/navBar';
 import { resources } from '../../resources/datas/skills';
+import Image from 'next/image';
 const { Title, Paragraph, Text } = Typography;
 
 export default function SkillsPage() {
@@ -29,7 +30,7 @@ export default function SkillsPage() {
                                 <Card
                                     hoverable
                                     cover={
-                                        <img
+                                        <Image
                                             alt={res.title}
                                             src={res.image}
                                             style={{ height: "200px", objectFit: "contain", padding: "1rem", background: "#1f2937" }}
